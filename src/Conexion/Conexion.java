@@ -24,6 +24,8 @@ public class Conexion implements SerialPortEventListener {
     private InputStream input; // Entrada del puerto
     private OutputStream output; // Salida del puerto
 
+    int distancia_sensor = -1;
+    
     public static void main(String[] args) {
         Conexion pb = new Conexion();
         pb.buscarPuertos(); // buscamos los puertos
@@ -99,7 +101,7 @@ public class Conexion implements SerialPortEventListener {
         try {
             input = serialPort.getInputStream();
             output = serialPort.getOutputStream();
-            enviar("HELLO"); // Enviamos un saludo para comprobar conexión
+            //enviar("HELLO"); // Enviamos un saludo para comprobar conexión
             
             return true;
         } catch (IOException e) {
@@ -125,9 +127,9 @@ public class Conexion implements SerialPortEventListener {
     /**
      * @brief Función que escrube una cadena sobre el puerto
      */
-    public void enviar(String aenviar) {
+    public void enviar(int aenviar) {
         try {
-            output.write(aenviar.getBytes());
+            output.write(aenviar);
         } catch (IOException ex) {
             System.out.println("Error al enviar informacion.");
         }
@@ -140,14 +142,16 @@ public class Conexion implements SerialPortEventListener {
     public void serialEvent(SerialPortEvent spe) {
         if (spe.getEventType() == SerialPortEvent.DATA_AVAILABLE) { // En caso de que haya bytes por leer
             
-            byte[] readBuffer = new byte[20];
+            byte[] readBuffer = new byte[1];
             try {
                 int numBytes = 0;
                 while (input.available() > 0) { // Leemos cada uno de los datos del puerto
                     numBytes = input.read(readBuffer); // Los guardamos en el arreglo de bytes y obtenemos el número
                 }
-                System.out.println(new String(readBuffer, 0, numBytes) + ", " + numBytes); // Imprimimos lo leído
-                
+             
+                distancia_sensor = 0xFF&readBuffer[0];
+                System.out.println("\r"+distancia_sensor); // Imprimimos lo leído
+                enviar(distancia_sensor);
             } catch (IOException e) {
                 System.out.println(e);
             }
@@ -159,7 +163,7 @@ public class Conexion implements SerialPortEventListener {
      */
     public void desconectar() {
         try {
-            enviar("GOODBYE");
+            //enviar("GOODBYE");
             serialPort.removeEventListener();
             serialPort.close();
             input.close();
