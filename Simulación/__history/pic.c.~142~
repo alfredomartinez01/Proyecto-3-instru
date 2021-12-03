@@ -18,8 +18,6 @@ int16 duty;
 void encenderLed();
 void apagarLed();
 
-float leersensor1();
-float leersensor2();
 
 #define trigger pin_B1
 #define echo pin_B0
@@ -40,7 +38,6 @@ void encenderLed(){
 void apagarLed(){
    Bit_clear(LED);
 }
-
 float leersensor1(){
    float valor;
    setup_adc_ports(ALL_ANALOG);
@@ -48,7 +45,7 @@ float leersensor1(){
    
    set_adc_channel(0);
    delay_us(50);
-   valor = ((read_adc()*5.0)*100/1023);
+   valor = ((read_adc())*100.0/1023);
    return valor;
 }
 
@@ -62,26 +59,31 @@ float leersensor2(){
    valor = ((read_adc()*5.0)*100/1023);
    return valor;   
 }
-void main(){
-   enable_interrupts(int_rda);
-   enable_interrupts(global);
 
+void main(){
+   //enable_interrupts(int_rda);
+   //enable_interrupts(global);
+   //setup_timer_1(T1_internal|T1_div_by_1);   
 
    while(true){
-      output_high(trigger);
-      delay_us(10);
-      output_low(trigger);
+      //output_high(trigger);
+      //delay_us(10);
+      //output_low(trigger);
       
+      //float dato_1 = leersensor1();
+      //float dato_2 = leersensor2();
       
+      //while(!input(echo));
+      //set_timer1(0);
       
-      while(!input(echo));
-      set_timer1(0);
+      //while(input(echo));
+      //tiempo = get_timer1();
+      //distancia=(tiempo/2)*(0.0343);
       
-      while(input(echo));
-      tiempo = get_timer1();
-      distancia=(tiempo/2)*(0.0343);
-      
-      putc(distancia);
+      printf("Hola");
+      //printf("\ %d %f \n", distancia, dato_1);
+      //putc(distancia);
+      //putc(dato_1);
       
       delay_ms(500);
    }

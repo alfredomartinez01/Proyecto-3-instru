@@ -1,0 +1,5 @@
+>>> Warning 202 "pic.c" Line 15(5,11): Variable never used:   Timer2
+>>> Warning 202 "pic.c" Line 15(13,22): Variable never used:   Postcaler
+      Memory usage:   ROM=16%      RAM=8% - 18%
+      0 Errors,  2 Warnings.
+Build Successful.

@@ -1,0 +1,27 @@
+ÀÄpic
+   ÃÄMAIN  0/198  Ram=4
+   ³  ÃÄ@cinit1  (Inline)  Ram=0
+   ³  ÃÄleersensor1  0/97  Ram=8
+   ³  ³  ÃÄ@ITOF  0/29  Ram=2
+   ³  ³  ÃÄ@MULFF  0/117  Ram=13
+   ³  ³  ÀÄ@DIVFF  0/202  Ram=14
+   ³  ÃÄleersensor2  0/72  Ram=6
+   ³  ³  ÃÄ@ITOF  0/29  Ram=2
+   ³  ³  ÀÄ@MULFF  0/117  Ram=13
+   ³  ÃÄ@ITOF  0/29  Ram=2
+   ³  ÃÄ@DIVFF  0/202  Ram=14
+   ³  ÃÄ@MULFF  0/117  Ram=13
+   ³  ÃÄ@SFTOI  0/33  Ram=4
+   ³  ÃÄ@PRINTF_D_9600_62_63  0/93  Ram=6
+   ³  ³  ÃÄ@DIV88  0/21  Ram=3
+   ³  ³  ÀÄ@DIV88  0/21  Ram=3
+   ³  ÃÄ@PRINTF_L32D_9600_62_63FPFPF  0/228  Ram=13
+   ³  ³  ÃÄ@MULFF  0/117  Ram=13
+   ³  ³  ÃÄ@FTOSD  (Inline)  Ram=5
+   ³  ³  ÃÄ@DIV3232  0/79  Ram=13
+   ³  ³  ÀÄ@DIV3232  0/79  Ram=13
+   ³  ÃÄ@PRINTF_L32D_9600_62_63FPFPF  0/228  Ram=13
+   ³  ³  ÀÄ*
+   ³  ÀÄ@delay_ms1  0/23  Ram=1
+   ÀÄrda_isr  0/64  Ram=2
+      ÀÄ@DIV1616  (Inline)  Ram=5

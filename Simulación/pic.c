@@ -56,7 +56,7 @@ float leersensor2(){
    
    set_adc_channel(1);  
    delay_us(50);
-   valor = ((read_adc()*5.0)*100/1023);
+   valor = ((read_adc()*1.0));
    return valor;   
 }
 
@@ -81,7 +81,7 @@ void main(){
       distancia=(tiempo/2)*(0.0343);
       
       //printf("Hola");
-      printf("\ %d %f \n", distancia, dato_1);
+      printf("\ %d %f %f\n", distancia, dato_1, dato_2);
       //putc(distancia);
       //putc(dato_1);
       
