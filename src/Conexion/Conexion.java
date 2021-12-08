@@ -9,39 +9,51 @@ import java.util.HashMap;
 import java.util.TooManyListenersException;
 
 public class Conexion implements SerialPortEventListener {
+    enum Medicion{
+        DISTANCIA,
+        TEMPERATURA,
+        LUZ
+    }
     
-    final String puerto = "COM6"; // Puerto virtual a conectarse
-    
-    Enumeration ports; // Enumeración de todos los puertos encontrados
     HashMap<String, CommPortIdentifier> portMap = new HashMap<String, CommPortIdentifier>(); // Mapa con esos puertos para elegir el nuestro
-    CommPortIdentifier selectedPortIdentifier; // Idenfiticador común del puerto sobre el hasmap
-    CommPort commPort; // Identificador del puerto para abrir la conexión
-    
     SerialPort serialPort; // Identificador final del puerto que servirá para manejar toda la conexión y obtener los flujos
         
-    int TIMEOUT = 1000; // Tiempo de espera para la creación de los flujos
     private boolean conectado; // Variable para guardar si se conectó o no exitosamente al puerto
     private InputStream input; // Entrada del puerto
     private OutputStream output; // Salida del puerto
 
-    int distancia_sensor = -1;
+    int sensor = -1; // Variable que almacena el valor
+    boolean esperaByte = false; // Variable que controla si espera un byte de sensor o no
+    Medicion medicion; // Variable que indica que tipo de dato de está midiendo
     
     public static void main(String[] args) {
-        Conexion pb = new Conexion();
-        pb.buscarPuertos(); // buscamos los puertos
-        pb.conectar(); // Conectamos al puerto establecido 
-
-        if (pb.conectado == true) { // Comprobamos que se haya conectado correctamente al puerto
-            if (pb.iniciarFlujos() == true) { // Comprobamos que se creen correctamente los flujos
-                pb.initListener(); // Iniciamos los listeners para tener las interrupciones
+        Conexion p_dyt = new Conexion();
+        p_dyt .buscarPuertos(); // buscamos los puertos
+        p_dyt .conectar("COM6"); // Conectamos al puerto establecido 
+        
+        Conexion p_l = new Conexion();
+        p_l.buscarPuertos(); // buscamos los puertos
+        p_l.conectar("COM7"); // Conectamos al puerto establecido 
+        
+        if (p_dyt.conectado == true) { // Comprobamos que se haya conectado correctamente al puerto
+            if (p_dyt .iniciarFlujos() == true) { // Comprobamos que se creen correctamente los flujos
+                p_dyt .initListener(); // Iniciamos los listeners para tener las interrupciones
             }
         }
+
+        if (p_l.conectado == true) { // Comprobamos que se haya conectado correctamente al puerto
+            if (p_l.iniciarFlujos() == true) { // Comprobamos que se creen correctamente los flujos
+                p_l.initListener(); // Iniciamos los listeners para tener las interrupciones
+            }
+        }
+        
     }
     
     /**
      * @brief Función que obtiene la lista de puertos y lo guardar en portMap 
      */
     public void buscarPuertos() {
+        Enumeration ports; // Enumeración de todos los puertos encontrados
         System.out.println("Puertos disponibles:");
         ports = CommPortIdentifier.getPortIdentifiers();
         
@@ -61,13 +73,15 @@ public class Conexion implements SerialPortEventListener {
     /**
      * @brief Función que conecta al puerto indicado en la variable puerto
      */
-    public void conectar() {
+    public void conectar(String puerto) {
+        CommPortIdentifier selectedPortIdentifier; // Idenfiticador común del puerto sobre el hasmap
         selectedPortIdentifier = (CommPortIdentifier) portMap.get(puerto);
+        CommPort commPort; // Identificador del puerto para abrir la conexión
         commPort = null;
         
         // Intentamos abrir la conexión 
         try {
-            commPort = selectedPortIdentifier.open("Nivel de tinaco", TIMEOUT);
+            commPort = selectedPortIdentifier.open("Nivel de tinaco", 1000);
             serialPort = (SerialPort) commPort;
             configurarConexion();
             conectado = true;
@@ -101,7 +115,6 @@ public class Conexion implements SerialPortEventListener {
         try {
             input = serialPort.getInputStream();
             output = serialPort.getOutputStream();
-            //enviar("HELLO"); // Enviamos un saludo para comprobar conexión
             
             return true;
         } catch (IOException e) {
@@ -148,10 +161,37 @@ public class Conexion implements SerialPortEventListener {
                 while (input.available() > 0) { // Leemos cada uno de los datos del puerto
                     numBytes = input.read(readBuffer); // Los guardamos en el arreglo de bytes y obtenemos el número
                 }
-             
-                distancia_sensor = 0xFF&readBuffer[0];
-                System.out.println("\r"+distancia_sensor); // Imprimimos lo leído
-                enviar(distancia_sensor);
+                
+                sensor = 0xFF&readBuffer[0];
+                //System.out.println("\r"+ sensor + " "+ medicion + " " + esperaByte); // Imprimimos lo leído
+                
+                
+                if(!esperaByte){
+                    
+                    switch (sensor) {
+                        case 255:
+                            esperaByte = true;
+                            medicion = Medicion.DISTANCIA;
+                            break;
+                        case 254:
+                            esperaByte = true;
+                            medicion = Medicion.TEMPERATURA;
+                            break;
+                        case 253:
+                            esperaByte = true;
+                            medicion = Medicion.LUZ;
+                            break;
+                        default:
+                            esperaByte = false;
+                            break;
+                    }
+                } else if(sensor < 200){
+                    System.out.println("\r"+ sensor + " "+ medicion ); // Imprimimos lo leído
+                    esperaByte = false;
+                    enviar(sensor);
+                }
+                
+                
             } catch (IOException e) {
                 System.out.println(e);
             }
@@ -163,7 +203,6 @@ public class Conexion implements SerialPortEventListener {
      */
     public void desconectar() {
         try {
-            //enviar("GOODBYE");
             serialPort.removeEventListener();
             serialPort.close();
             input.close();

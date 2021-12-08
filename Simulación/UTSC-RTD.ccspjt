@@ -1,0 +1,20 @@
+[PROJECT]
+Target=UTSC-RTD.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.025
+Compiler=PCM
+[Target Data]
+FileList=UTSC-RTD.c
+[UTSC-RTD.c]
+Type=4
+[mru-list]
+1=UTSC-RTD.c
+[Units]
+Count=1
+1=UTSC-RTD (main)
+
+[ProjectLog]
+Days=1
+D1=07-12-2021
+D1_L=1
+D1_L1=[67502]Project Closed.

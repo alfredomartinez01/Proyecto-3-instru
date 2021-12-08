@@ -1,0 +1,10 @@
+ÀÄLDR
+   ÀÄMAIN  0/50  Ram=0
+      ÃÄ@cinit1  (Inline)  Ram=0
+      ÃÄleerLDR  0/440  Ram=8
+      ³  ÃÄ@ITOF  (Inline)  Ram=2
+      ³  ÃÄ@MULFF  (Inline)  Ram=13
+      ³  ÀÄ@DIVFF  (Inline)  Ram=14
+      ÃÄ@SFTOI  0/33  Ram=4
+      ÃÄ@delay_ms1  0/21  Ram=1
+      ÀÄ@delay_ms1  0/21  Ram=1

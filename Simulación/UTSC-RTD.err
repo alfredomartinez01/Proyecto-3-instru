@@ -1,0 +1,4 @@
+>>> Warning 202 "UTSC-RTD.c" Line 14(7,11): Variable never used:   duty
+      Memory usage:   ROM=9%      RAM=3% - 11%
+      0 Errors,  1 Warnings.
+Build Successful.

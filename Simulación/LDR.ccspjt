@@ -1,0 +1,25 @@
+[PROJECT]
+Target=LDR.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.025
+Compiler=PCM
+[Target Data]
+FileList=LDR.c
+[LDR.c]
+Type=4
+[mru-list]
+1=LDR.c
+[Units]
+Count=1
+1=LDR (main)
+
+[Opened Files]
+1=LDR.c
+2=UTSC-RTD.c
+3=
+
+[ProjectLog]
+Days=1
+D1=07-12-2021
+D1_L=1
+D1_L1=[67490]Project Closed.

@@ -1,0 +1,57 @@
+
+ROM used:   548/8192 (7%)
+            548/8192 (7%) including unused fragments
+
+            0.4 Average locations per line
+            4.0 Average locations per statement
+
+RAM used:   7/368 (2%) at main() level
+            30/368 (8%) worst case
+
+Stack used: 1 worst case (1 in main + 0 for interrupts)
+Stack size: 8
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   42    12   9  LDR.c
+  672     0   0  ..\..\..\..\..\..\Program Files (x86)\PICC\Devices\16f877a.h
+   37     0   0  ..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\stdio.h
+  423   125  91  ..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\string.h
+   32     0   0  ..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\stddef.h
+   28     0   0  ..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\ctype.h
+----- -----
+ 1234   137 Total
+
+Page ROM  %  RAM    Vol Diff  Functions:
+---- --- --- ---    --- ----  ----------
+0     21   4    1             @delay_ms1
+0    440  80    8    163  2.9  leerLDR
+ Inline         2             @ITOF
+ Inline        13             @MULFF
+ Inline        14             @DIVFF
+0     50   9    0    119  2.1  MAIN
+0     33   6    4             @SFTOI
+ Inline         0             @cinit1
+
+Program metrics:
+    Functions               2
+    Statements              137
+    Comments                317
+    Volume (V)              356
+    Difficulty (D)          4.3
+    Effort to implement (E) 1516
+    Time to implement (T)   1 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   1
+    Maintainability (MI)    106
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF   544  1500  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+
