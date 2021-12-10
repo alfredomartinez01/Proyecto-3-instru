@@ -5,6 +5,7 @@
  */
 package Animacion;
 
+import Conexion.Conexion;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -63,11 +64,22 @@ public class frmAnimacion extends javax.swing.JFrame {
 
     int iTi, iTe, iL; //Variable que ayuda al pintado (viene siendo el valor que se reciba del sensor con un algun calculo de ajuste)
     Graphics imagen; //Variable auxiliar que ayuda a tomar los graficos del Jframe
-
+    
+    
+    private Conexion p_dyt;
+    private Conexion p_l;
     /**
      * Creates new form frmAnimacion
      */
-    public frmAnimacion() {
+    public frmAnimacion(Conexion com6, Conexion com7) {
+        p_dyt = com6;
+        p_l = com7;
+        
+        // Leer esto cada segundo y mostrar en pantalla
+        System.out.println("Temperatura: " + p_dyt.getTemperatura());
+        System.out.println("Distancia: " + p_dyt.getDistancia());
+        System.out.println("Luz: " + p_l.getLuz()); 
+        
         initComponents();
         /*Estableciendo tamaño, color y posición de la ventana (JFrame)*/
         setSize(1111, 673);
@@ -461,7 +473,7 @@ public class frmAnimacion extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmAnimacion().setVisible(true);
+                new frmAnimacion(new Conexion("COM6"), new Conexion("COM6")).setVisible(true);
             }
         });
     }

@@ -5,7 +5,9 @@
  */
 package Animacion;
 
+import Conexion.Conexion;
 import java.io.File;
+import static java.lang.Thread.sleep;
 import javax.swing.ImageIcon;
 
 /**
@@ -17,15 +19,22 @@ public class Portada extends javax.swing.JFrame {
     private ImageIcon poli;
     private ImageIcon escom;
     private ImageIcon play;
+    
+    private Conexion p_dyt;
+    private Conexion p_l;
     /**
      * Creates new form Portada
      */
     public Portada(){
-       poli = obtenerImageIcon("logoPoli.png");
-       escom = obtenerImageIcon("logoEscom.png");
-       play = obtenerImageIcon("comenzar.png");
+        poli = obtenerImageIcon("logoPoli.png");
+        escom = obtenerImageIcon("logoEscom.png");
+        play = obtenerImageIcon("comenzar.png");
         
         initComponents();
+        new Thread(() -> {
+            p_dyt = new Conexion("COM6");
+            p_l = new Conexion("COM7");
+        }).start();        
     }
 
     public ImageIcon obtenerImageIcon(String nombre_imagen){
@@ -129,7 +138,7 @@ public class Portada extends javax.swing.JFrame {
 
     private void btnComenzarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComenzarMouseClicked
         this.setVisible(false);
-        new frmAnimacion().setVisible(true);
+        new frmAnimacion(p_dyt, p_l).setVisible(true);
     }//GEN-LAST:event_btnComenzarMouseClicked
 
     /**
