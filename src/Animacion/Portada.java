@@ -20,8 +20,8 @@ public class Portada extends javax.swing.JFrame {
     private ImageIcon escom;
     private ImageIcon play;
     
-    private Conexion p_dyt;
-    private Conexion p_l;
+    private Conexion p_dyt = null;
+    private Conexion p_l = null;
     /**
      * Creates new form Portada
      */

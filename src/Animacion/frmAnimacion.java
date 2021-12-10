@@ -65,8 +65,8 @@ public class frmAnimacion extends javax.swing.JFrame {
     int iTi, iTe, iL; //Variable que ayuda al pintado (viene siendo el valor que se reciba del sensor con un algun calculo de ajuste)
     Graphics imagen; //Variable auxiliar que ayuda a tomar los graficos del Jframe
 
-    private Conexion p_dyt;
-    private Conexion p_l;
+    private Conexion p_dyt = null;
+    private Conexion p_l = null;
     
     
     private int distancia = 0;
@@ -133,6 +133,9 @@ public class frmAnimacion extends javax.swing.JFrame {
 //        new Thread(() -> {
 //            llenadoLam();
 //        }).start();
+        //repaint();
+        //while(p_dyt == null || p_l == null);
+
         new Thread(() -> {
             sensor();
         }).start();
