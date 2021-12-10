@@ -67,7 +67,7 @@ void main(){
       int temperatura = leerRTD(); // Leemos el sensor para la emperatura
       
       // Activamos/desactivamos el motor con base en la distancia
-      if(distancia < 4)
+      if(distancia < 8)
          set_pwm1_duty(0);
       else
          set_pwm1_duty(1000);

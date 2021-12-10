@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c0000000200000003000000ffffffffffffffffffffffffffffffff0a0600000e000000660a0000dc020000</PLACEMENT>
+  <PLACEMENT>2c0000000000000001000000ffffffffffffffffffffffffffffffff610500000c0000001e09000064020000</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
  </FRAME>
  <MODULE name="VSMDEBUG">
@@ -38,7 +38,7 @@
      <ITEM name="HexMode">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="52" x="128" flags="00000008" y="189" h="13" pid="3" iid="68">
+   <POPUP w="380" x="128" flags="00000008" y="189" h="182" pid="3" iid="68">
     <PROPERTIES/>
    </POPUP>
    <POPUP w="8" x="148" flags="0000000a" y="209" h="32" pid="4" iid="68">
@@ -71,7 +71,7 @@
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="14" x="208" flags="00000008" y="269" h="8" pid="7" iid="68">
+   <POPUP w="114" x="208" flags="00000008" y="269" h="127" pid="7" iid="68">
     <PROPERTIES/>
    </POPUP>
    <POPUP w="8" x="228" flags="00000002" y="289" h="8" pid="8" iid="68">

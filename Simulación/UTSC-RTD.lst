@@ -1,4 +1,4 @@
-CCS PCM C Compiler, Version 5.025, 41044               07-dic.-21 18:44
+CCS PCM C Compiler, Version 5.025, 41044               09-dic.-21 14:08
 
                Filename:   C:\Users\kit_5\Downloads\Instrumentación\Proyecto 3 - Llenado tinaco\Simulación\UTSC-RTD.lst
 
@@ -1304,9 +1304,9 @@ CCS PCM C Compiler, Version 5.025, 41044               07-dic.-21 18:44
 02AB:  MOVWF  28
 ....................        
 ....................       // Activamos/desactivamos el motor con base en la distancia 
-....................       if(distancia < 8) 
+....................       if(distancia < 4) 
 02AC:  MOVF   27,W
-02AD:  SUBLW  07
+02AD:  SUBLW  03
 02AE:  BTFSS  03.0
 02AF:  GOTO   2B2
 ....................          set_pwm1_duty(0); 

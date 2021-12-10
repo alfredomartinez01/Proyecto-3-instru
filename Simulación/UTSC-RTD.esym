@@ -1,7 +1,7 @@
-D G "__PCM__" 0 43 ""5.025""
-D G "__DEVICE__" 0 43 "877"
-D G "__DATE__" 0 43 ""07-dic.-21""
-D G "__TIME__" 0 43 ""18:44:54"" "--------------------INCLUÍMOS LIBRERÍAS Y VARIABLES--------------------*"
+D G "__PCM__" 0 0 ""5.025""
+D G "__DEVICE__" 0 0 ""
+D G "__DATE__" 0 0 ""09-dic.-21""
+D G "__TIME__" 0 0 ""14:08:07"" "--------------------INCLUÍMOS LIBRERÍAS Y VARIABLES--------------------*"
 c L "set_tris_a" 1 1 6 "FUNCTION"
 v L "value" 1 37 "int8" `54 
 f B "set_tris_a" 1 37 "void(int8 value)" `53 
@@ -906,7 +906,7 @@ V G "Timer2" 0 13 "int8" `719
 V G "Postcaler" 0 13 "int8" `720  "Variables de la carga del timer2 y su poscaler"
 V G "duty" 0 14 "int16" `721  "------------------------DECLARACIÓN DE FUNCIONES-----------------------*"
 C L "leerRTD" 0 9 1 "FUNCTION"
-F G "leerRTD" 0 18 "float(int16 )" `722 
+F G "leerRTD" 0 18 "float()" `722 
 V L "temperatura" 0 19 "float" `723  "Configuramos el contador"
 C L "leerRTD" 0 9 1 "FUNCTION"
 C L "leerRTD" 0 9 1 "FUNCTION"

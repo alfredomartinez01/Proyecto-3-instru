@@ -9,12 +9,26 @@ FileList=UTSC-RTD.c
 Type=4
 [mru-list]
 1=UTSC-RTD.c
-[Units]
-Count=1
-1=UTSC-RTD (main)
 
 [ProjectLog]
-Days=1
+Days=2
 D1=07-12-2021
 D1_L=1
 D1_L1=[67502]Project Closed.
+D2=09-12-2021
+D2_L=4
+D2_L1=[50874]Project Opened.
+D2_L2=[50884]Started Editing.
+D2_L3=[50890]Stopped Editing.
+TotalEdit=1
+TotalDebug=0
+D2_E=1
+D2_D=0
+D2_L4=[50890]Project Closed.
+
+[Opened Files]
+1=UTSC-RTD.c
+2=
+[Units]
+Count=1
+1=UTSC-RTD (main)
