@@ -64,10 +64,10 @@ public class frmAnimacion extends javax.swing.JFrame {
 
     int iTi, iTe, iL; //Variable que ayuda al pintado (viene siendo el valor que se reciba del sensor con un algun calculo de ajuste)
     Graphics imagen; //Variable auxiliar que ayuda a tomar los graficos del Jframe
-    
-    
+
     private Conexion p_dyt;
     private Conexion p_l;
+
     /**
      * Creates new form frmAnimacion
      */
@@ -75,24 +75,19 @@ public class frmAnimacion extends javax.swing.JFrame {
         p_dyt = com6;
         p_l = com7;
         
-        // Leer esto cada segundo y mostrar en pantalla
-        System.out.println("Temperatura: " + p_dyt.getTemperatura());
-        System.out.println("Distancia: " + p_dyt.getDistancia());
-        System.out.println("Luz: " + p_l.getLuz()); 
-        
         initComponents();
         /*Estableciendo tamaño, color y posición de la ventana (JFrame)*/
         setSize(1111, 673);
-        getContentPane().setBackground(new Color(252, 201, 243));
+        getContentPane().setBackground(new Color(204,153,255));
         setLocationRelativeTo(null);
 
         /*Asignando valores (ruta de imagen) a los background y foreground*/
         try {
             foregroundTin = ImageIO.read(new File(".\\src\\imagenes\\tinaco4.png"));
-            backgroundTin = ImageIO.read(new File(".\\src\\imagenes\\tinacoColor.png"));           
-            foregroundTer = ImageIO.read(new File(".\\src\\imagenes\\termometro3.png"));             
-            backgroundTer = ImageIO.read(new File(".\\src\\imagenes\\terColor.png"));            
-            foregroundLam = ImageIO.read(new File(".\\src\\imagenes\\lampara.png"));            
+            backgroundTin = ImageIO.read(new File(".\\src\\imagenes\\tinacoColor.png"));
+            foregroundTer = ImageIO.read(new File(".\\src\\imagenes\\termometro3.png"));
+            backgroundTer = ImageIO.read(new File(".\\src\\imagenes\\terColor.png"));
+            foregroundLam = ImageIO.read(new File(".\\src\\imagenes\\lampara.png"));
             backgroundLam = ImageIO.read(new File(".\\src\\imagenes\\lamparaColor.png"));
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -122,19 +117,18 @@ public class frmAnimacion extends javax.swing.JFrame {
         //System.out.println("Tinaco -> x: " + x + ", y: " + y);
         //System.out.println("Termometro -> x: " + x1 + ", y: " + y1);
         //System.out.println("Lampara -> x: " + x2 + ", y: " + y2);
-        
         imagen = getGraphics(); //Obtencion de los graficos del JFrame
 
         /*Creacion de hilos para realizar Simulación sin conexion con proteus*/
-        new Thread(() -> {
-            llenadoTin();
-        }).start();
-        new Thread(() -> {
-            llenadoTer();
-        }).start();
-        new Thread(() -> {
-            llenadoLam();
-        }).start();
+//        new Thread(() -> {
+//            llenadoTin();
+//        }).start();
+//        new Thread(() -> {
+//            llenadoTer();
+//        }).start();
+//        new Thread(() -> {
+//            llenadoLam();
+//        }).start();
         new Thread(() -> {
             sensor();
         }).start();
@@ -158,29 +152,28 @@ public class frmAnimacion extends javax.swing.JFrame {
 
                 g.drawImage(foregroundTin, x, y, this);
 
-                llenadoPCT = (int) ((llenoTin - iTi) / llenoTin * 100);
             }
-            
+
             /*Cuando el sensor de Temperatura esta activado*/
             if (activeTer) {
                 g.drawImage(backgroundTer, x1, y1, this);
-                
-                g.clearRect(x1, y1, 100, (int)llenoTer-iTe);
-                
+
+                g.clearRect(x1, y1, 100, (int) llenoTer - iTe);
+
                 g.drawImage(foregroundTer, x1, y1, this);
-                
-                llenadoPCT1 = (int) (iTe/llenoTer*100);
+
+                llenadoPCT1 = (int) (iTe / llenoTer * 100);
             }
-            
+
             /*Cuando el sensor Fotoresistivo esta activado*/
             if (activeLam) {
                 g.drawImage(backgroundLam, x2, y2, this);
-                
-                g.clearRect(x2, y2, 230, (int)llenoLam-iL);
-                
+
+                g.clearRect(x2, y2, 230, (int) llenoLam - iL);
+
                 g.drawImage(foregroundLam, x2, y2, this);
-                
-                llenadoPCT2 = (int) (iL/llenoLam*100);
+
+                llenadoPCT2 = (int) (iL / llenoLam * 100);
             }
         }
         inicio = (inicio + 1) % 2; //Calculo que devuelve un 1 o 0, para que solo se ejecute una vez la simulacion (es que antes se repetia 2 veces)
@@ -246,77 +239,22 @@ public class frmAnimacion extends javax.swing.JFrame {
 //            }
 //        }
 //    }
-    
     /*Funcion que ayuda a saber cuando y donde pintar*/
     public void llenadoTin() {
-        while (true) {
-            try {
-                Thread.sleep(20);
-                /*Tinaco*/
-                if (llenandoTin) {
-                    iTi++;
-                    if(iTi>llenoTin)
-                        iTi=(int)llenoTin;
-                    paint(imagen);
-                }
-                if (vaciandoTin) {
-                    iTi--;
-                    if(iTi<0)
-                        iTi=0;
-                    paint(imagen);
-                }
-            } catch (InterruptedException ex) {
-                Logger.getLogger(frmTinaco.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        iTi = (int) (-2.268041 * p_dyt.getDistancia() + 226.80412);
+        paint(imagen);
     }
-    
+
     /*Funcion que ayuda a saber cuando y donde pintar*/
     public void llenadoTer() {
-        while (true) {
-            try {
-                Thread.sleep(20);
-                /*Termometro*/
-                if (llenandoTer) {
-                    iTe++;
-                    if(iTe>llenoTer)
-                        iTe=(int)llenoTer;
-                    paint(imagen);                   
-                }
-                if(vaciandoTer){
-                    iTe--;
-                    if(iTe<0)
-                        iTe=0;
-                    paint(imagen);
-                }
-            } catch (InterruptedException ex) {
-                Logger.getLogger(frmTinaco.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        iTe = (int) (2.45 * p_dyt.getTemperatura());
+        paint(imagen);
     }
-    
+
     /*Funcion que ayuda a saber cuando y donde pintar*/
     public void llenadoLam() {
-        while (true) {
-            try {
-                Thread.sleep(20);
-                /*Lampara*/
-                if (llenandoLam) {
-                    iL++;
-                    if(iL>llenoLam)
-                        iL=(int)llenoLam;
-                    paint(imagen);                   
-                }
-                if(vaciandoLam){
-                    iL--;
-                    if(iL<110)
-                        iL=110;
-                    paint(imagen);
-                }
-            } catch (InterruptedException ex) {
-                Logger.getLogger(frmTinaco.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+       iL = (int) (1.38 * p_l.getLuz() + 110);
+        paint(imagen);
     }
 
     public void sensor() {
@@ -326,43 +264,48 @@ public class frmAnimacion extends javax.swing.JFrame {
             llenandoTer = true;
             llenandoLam = true;
             while (true) {
-                Thread.sleep(20);
+                //Thread.sleep(3000);
+                
+                // Comprobar que se estén leyendo, si no, mostrar un mensaje
+                p_dyt.getLeyendo();
+                p_l.getLeyendo();
+                
                 /*Tinaco*/
-                System.out.println("PCT: " + llenadoPCT);
-                if (llenadoPCT <= 3) { //Apagar sensor ultrasonico
+                //System.out.println("PCT: " + p_dyt.getDistancia());
+                llenadoTin();
+
+                if (p_dyt.getDistancia() <= 3) { //Apagar sensor ultrasonico
                     llenandoTin = false;
                     vaciandoTin = true;
-                    System.out.println("mensaje de tinaco lleno");
-                    return;
+                    //System.out.println("mensaje de tinaco lleno");
                 }
-                
+
                 /*Termometro*/
-                System.out.println("PCT1: " + llenadoPCT1);
-                if (llenadoPCT1 >= 100) { //Apagar sensor de temperatura
+                //System.out.println("PCT1: " + llenadoPCT1);
+                llenadoTer();
+                System.out.println("PCT1: " + p_dyt.getTemperatura());
+                if (p_dyt.getTemperatura() >= 100) { //Apagar sensor de temperatura
                     llenandoTer = false;
                     vaciandoTer = true;
-                    System.out.println("mensaje de termometro lleno");
-                    return;
+                    //System.out.println("mensaje de termometro lleno");
                 }
-                
-                /*Lampara*/
-                System.out.println("PCT2: " + llenadoPCT2);
-                if (llenadoPCT2 >= 100) { //Apagar sensor fotoresistivo
+//
+//                /*Lampara*/
+//                //System.out.println("PCT2: " + llenadoPCT2);
+
+                llenadoLam();
+                //System.out.println("PCT1: " + p_l.getLuz());
+                if (p_l.getLuz() >= 100) { //Apagar sensor fotoresistivo
                     llenandoLam = false;
                     vaciandoLam = true;
-                    System.out.println("mensaje de lampara llena");
-                    return;
+                    //System.out.println("mensaje de lampara llena");
                 }
             }
         } catch (InterruptedException ex) {
             Logger.getLogger(frmTinaco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public ImageIcon obtenerImageIcon(String nombre_imagen){
-        File img = new File(".\\src\\imagenes\\" + nombre_imagen);
-        return new ImageIcon(img.getAbsolutePath());
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -473,7 +416,7 @@ public class frmAnimacion extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmAnimacion(new Conexion("COM6"), new Conexion("COM6")).setVisible(true);
+                new frmAnimacion(new Conexion("COM6"), new Conexion("COM7")).setVisible(true);
             }
         });
     }

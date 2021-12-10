@@ -31,6 +31,8 @@ public class Conexion implements SerialPortEventListener {
     private int temperatura = 0;
     private int luz = 0;
 
+    private boolean leyendo = true;
+    
     public static void main(String[] args) {
         Conexion p_dyt = new Conexion("COM6");
         Conexion p_l = new Conexion("COM7");
@@ -59,6 +61,10 @@ public class Conexion implements SerialPortEventListener {
     
     public int getLuz() {
         return luz;
+    }
+
+    public boolean getLeyendo() {
+        return leyendo;
     }
 
    
