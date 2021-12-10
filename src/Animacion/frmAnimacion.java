@@ -67,7 +67,11 @@ public class frmAnimacion extends javax.swing.JFrame {
 
     private Conexion p_dyt;
     private Conexion p_l;
-
+    
+    
+    private int distancia = 0;
+    private int temperatura = 0;
+    private int luz = 0;
     /**
      * Creates new form frmAnimacion
      */
@@ -80,7 +84,8 @@ public class frmAnimacion extends javax.swing.JFrame {
         setSize(1111, 673);
         getContentPane().setBackground(new Color(204,153,255));
         setLocationRelativeTo(null);
-
+        
+        
         /*Asignando valores (ruta de imagen) a los background y foreground*/
         try {
             foregroundTin = ImageIO.read(new File(".\\src\\imagenes\\tinaco4.png"));
@@ -117,7 +122,6 @@ public class frmAnimacion extends javax.swing.JFrame {
         //System.out.println("Tinaco -> x: " + x + ", y: " + y);
         //System.out.println("Termometro -> x: " + x1 + ", y: " + y1);
         //System.out.println("Lampara -> x: " + x2 + ", y: " + y2);
-        imagen = getGraphics(); //Obtencion de los graficos del JFrame
 
         /*Creacion de hilos para realizar Simulación sin conexion con proteus*/
 //        new Thread(() -> {
@@ -140,22 +144,18 @@ public class frmAnimacion extends javax.swing.JFrame {
         if (inicio == 0) {
             super.paint(g); //Hace que se pinte lo que ya esta en el Jframe
             /*Pintado inicial de imagenes sin fondo*/
-            g.drawImage(foregroundTin, x, y, this);
-            g.drawImage(foregroundTer, x1, y1, this);
-            g.drawImage(foregroundLam, x2, y2, this);
-
             /*Cuando el sensor Ultrasonico esta activado*/
-            if (activeTin) {
+            
                 g.drawImage(backgroundTin, x, y, this);
 
                 g.clearRect(x, y, 200, (int) llenoTin - iTi + 21);
 
                 g.drawImage(foregroundTin, x, y, this);
 
-            }
+            
 
             /*Cuando el sensor de Temperatura esta activado*/
-            if (activeTer) {
+            
                 g.drawImage(backgroundTer, x1, y1, this);
 
                 g.clearRect(x1, y1, 100, (int) llenoTer - iTe);
@@ -163,10 +163,10 @@ public class frmAnimacion extends javax.swing.JFrame {
                 g.drawImage(foregroundTer, x1, y1, this);
 
                 llenadoPCT1 = (int) (iTe / llenoTer * 100);
-            }
+            
 
             /*Cuando el sensor Fotoresistivo esta activado*/
-            if (activeLam) {
+            
                 g.drawImage(backgroundLam, x2, y2, this);
 
                 g.clearRect(x2, y2, 230, (int) llenoLam - iL);
@@ -174,7 +174,7 @@ public class frmAnimacion extends javax.swing.JFrame {
                 g.drawImage(foregroundLam, x2, y2, this);
 
                 llenadoPCT2 = (int) (iL / llenoLam * 100);
-            }
+            
         }
         inicio = (inicio + 1) % 2; //Calculo que devuelve un 1 o 0, para que solo se ejecute una vez la simulacion (es que antes se repetia 2 veces)
     }
@@ -241,30 +241,30 @@ public class frmAnimacion extends javax.swing.JFrame {
 //    }
     /*Funcion que ayuda a saber cuando y donde pintar*/
     public void llenadoTin() {
-        iTi = (int) (-2.268041 * p_dyt.getDistancia() + 226.80412);
-        paint(imagen);
+        iTi = (int) (-2.268041 * distancia + 226.80412);
+        repaint();
     }
 
     /*Funcion que ayuda a saber cuando y donde pintar*/
     public void llenadoTer() {
-        iTe = (int) (2.45 * p_dyt.getTemperatura());
-        paint(imagen);
+        iTe = (int) (2.45 * temperatura);
+        repaint();
     }
 
     /*Funcion que ayuda a saber cuando y donde pintar*/
     public void llenadoLam() {
-       iL = (int) (1.38 * p_l.getLuz() + 110);
-        paint(imagen);
+       iL = (int) (1.38 * luz + 110);
+       repaint();
     }
 
     public void sensor() {
         try {
-            Thread.sleep(3000);
+            //Thread.sleep(3000);
             llenandoTin = true;
             llenandoTer = true;
             llenandoLam = true;
             while (true) {
-                //Thread.sleep(3000);
+                Thread.sleep(500);
                 
                 // Comprobar que se estén leyendo, si no, mostrar un mensaje
                 p_dyt.getLeyendo();
@@ -272,7 +272,11 @@ public class frmAnimacion extends javax.swing.JFrame {
                 
                 /*Tinaco*/
                 //System.out.println("PCT: " + p_dyt.getDistancia());
-                llenadoTin();
+                activeTin = distancia != p_dyt.getDistancia();
+                if(activeTin){
+                    distancia = p_dyt.getDistancia();
+                    llenadoTin();
+                }                
 
                 if (p_dyt.getDistancia() <= 3) { //Apagar sensor ultrasonico
                     llenandoTin = false;
@@ -282,7 +286,13 @@ public class frmAnimacion extends javax.swing.JFrame {
 
                 /*Termometro*/
                 //System.out.println("PCT1: " + llenadoPCT1);
-                llenadoTer();
+                activeTer = temperatura != p_dyt.getTemperatura();
+                if(activeTer){
+                    temperatura = p_dyt.getTemperatura();
+                    llenadoTer();
+                }
+                
+                
                 System.out.println("PCT1: " + p_dyt.getTemperatura());
                 if (p_dyt.getTemperatura() >= 100) { //Apagar sensor de temperatura
                     llenandoTer = false;
@@ -292,8 +302,12 @@ public class frmAnimacion extends javax.swing.JFrame {
 //
 //                /*Lampara*/
 //                //System.out.println("PCT2: " + llenadoPCT2);
-
-                llenadoLam();
+                activeLam = luz != p_l.getLuz();
+                if(activeLam){
+                    luz = p_l.getLuz();
+                    llenadoLam();                    
+                }   
+                
                 //System.out.println("PCT1: " + p_l.getLuz());
                 if (p_l.getLuz() >= 100) { //Apagar sensor fotoresistivo
                     llenandoLam = false;
