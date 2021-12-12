@@ -7,8 +7,12 @@ package Animacion;
 
 import Conexion.Conexion;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -67,25 +71,31 @@ public class frmAnimacion extends javax.swing.JFrame {
 
     private Conexion p_dyt = null;
     private Conexion p_l = null;
-    
-    
+
     private int distancia = 0;
     private int temperatura = 0;
     private int luz = 0;
+
     /**
      * Creates new form frmAnimacion
      */
     public frmAnimacion(Conexion com6, Conexion com7) {
         p_dyt = com6;
         p_l = com7;
-        
+
         initComponents();
         /*Estableciendo tamaño, color y posición de la ventana (JFrame)*/
         setSize(1111, 673);
-        getContentPane().setBackground(new Color(204,153,255));
+        getContentPane().setBackground(new Color(204, 153, 255));
         setLocationRelativeTo(null);
         
-        
+        /*Mostramiento de mensaje de cargando puertos, si aun no se acaba la conexión con los mismos*/
+        if (p_dyt == null && p_l == null) {
+            lblCargando.setText("Cargando puertos...");
+        } else {
+            lblCargando.setText("");
+        }
+
         /*Asignando valores (ruta de imagen) a los background y foreground*/
         try {
             foregroundTin = ImageIO.read(new File(".\\src\\imagenes\\tinaco4.png"));
@@ -117,25 +127,22 @@ public class frmAnimacion extends javax.swing.JFrame {
         iTi = 0;
         iTe = 0;
         iL = 110; //La i de lampara si o si empieza en 110 para que solo se pinte la parte de la lampara y no de la base
+        
+        /*Agregando el listener para detectar el cierre de la ventana*/
+        addWindowListener (new WindowAdapter() {    
+            public void windowClosing (WindowEvent e) { 
+                p_dyt.desconectar();
+                p_l.desconectar();
+                System.exit(0);   
+            }    
+        });    
 
         /*Impresion de coordenadas de los label (solo por comprobacion)*/
         //System.out.println("Tinaco -> x: " + x + ", y: " + y);
         //System.out.println("Termometro -> x: " + x1 + ", y: " + y1);
         //System.out.println("Lampara -> x: " + x2 + ", y: " + y2);
 
-        /*Creacion de hilos para realizar Simulación sin conexion con proteus*/
-//        new Thread(() -> {
-//            llenadoTin();
-//        }).start();
-//        new Thread(() -> {
-//            llenadoTer();
-//        }).start();
-//        new Thread(() -> {
-//            llenadoLam();
-//        }).start();
-        //repaint();
-        //while(p_dyt == null || p_l == null);
-
+        /*Creacion de hilos para realizar Simulación*/
         new Thread(() -> {
             sensor();
         }).start();
@@ -146,38 +153,30 @@ public class frmAnimacion extends javax.swing.JFrame {
     public void paint(Graphics g) {
         if (inicio == 0) {
             super.paint(g); //Hace que se pinte lo que ya esta en el Jframe
-            /*Pintado inicial de imagenes sin fondo*/
             /*Cuando el sensor Ultrasonico esta activado*/
-            
-                g.drawImage(backgroundTin, x, y, this);
+            g.drawImage(backgroundTin, x, y, this);
 
-                g.clearRect(x, y, 200, (int) llenoTin - iTi + 21);
+            g.clearRect(x, y, 200, (int) llenoTin - iTi + 21);
 
-                g.drawImage(foregroundTin, x, y, this);
-
-            
+            g.drawImage(foregroundTin, x, y, this);
 
             /*Cuando el sensor de Temperatura esta activado*/
-            
-                g.drawImage(backgroundTer, x1, y1, this);
+            g.drawImage(backgroundTer, x1, y1, this);
 
-                g.clearRect(x1, y1, 100, (int) llenoTer - iTe);
+            g.clearRect(x1, y1, 100, (int) llenoTer - iTe);
 
-                g.drawImage(foregroundTer, x1, y1, this);
+            g.drawImage(foregroundTer, x1, y1, this);
 
-                llenadoPCT1 = (int) (iTe / llenoTer * 100);
-            
+            llenadoPCT1 = (int) (iTe / llenoTer * 100);
 
             /*Cuando el sensor Fotoresistivo esta activado*/
-            
-                g.drawImage(backgroundLam, x2, y2, this);
+            g.drawImage(backgroundLam, x2, y2, this);
 
-                g.clearRect(x2, y2, 230, (int) llenoLam - iL);
+            g.clearRect(x2, y2, 230, (int) llenoLam - iL);
 
-                g.drawImage(foregroundLam, x2, y2, this);
+            g.drawImage(foregroundLam, x2, y2, this);
 
-                llenadoPCT2 = (int) (iL / llenoLam * 100);
-            
+            llenadoPCT2 = (int) (iL / llenoLam * 100);
         }
         inicio = (inicio + 1) % 2; //Calculo que devuelve un 1 o 0, para que solo se ejecute una vez la simulacion (es que antes se repetia 2 veces)
     }
@@ -191,75 +190,25 @@ public class frmAnimacion extends javax.swing.JFrame {
         }
     }
 
-//    /*Funcion que ayuda a saber cuando y donde pintar*/
-//    public void llenado() {
-//        while (true) {
-//            try {
-//                Thread.sleep(20);
-//                /*Tinaco*/
-//                if (llenandoTin) {
-//                    i++;
-//                    if(i>llenoTin)
-//                        i=(int)llenoTin;
-//                    paint(imagen);
-//                }
-//                if (vaciandoTin) {
-//                    i--;
-//                    if(i<0)
-//                        i=0;
-//                    paint(imagen);
-//                }
-//                
-//                /*Termometro*/
-//                if (llenandoTer) {
-//                    i++;
-//                    if(i>llenoTer)
-//                        i=(int)llenoTer;
-//                    paint(imagen);                   
-//                }
-//                if(vaciandoTer){
-//                    i--;
-//                    if(i<0)
-//                        i=0;
-//                    paint(imagen);
-//                }
-//                
-//                /*Lampara*/
-//                if (llenandoLam) {
-//                    iL++;
-//                    if(iL>llenoLam)
-//                        iL=(int)llenoLam;
-//                    paint(imagen);                   
-//                }
-//                if(vaciandoLam){
-//                    iL--;
-//                    if(iL<110)
-//                        iL=110;
-//                    paint(imagen);
-//                }
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(frmTinaco.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//    }
-    /*Funcion que ayuda a saber cuando y donde pintar*/
+    /*Funcion que ayuda a saber cuando y donde pintar el tinaco*/
     public void llenadoTin() {
         iTi = (int) (-2.268041 * distancia + 226.80412);
         repaint();
     }
 
-    /*Funcion que ayuda a saber cuando y donde pintar*/
+    /*Funcion que ayuda a saber cuando y donde pintar el termometro*/
     public void llenadoTer() {
         iTe = (int) (2.45 * temperatura);
         repaint();
     }
 
-    /*Funcion que ayuda a saber cuando y donde pintar*/
+    /*Funcion que ayuda a saber cuando y donde pintar la lampara*/
     public void llenadoLam() {
-       iL = (int) (1.38 * luz + 110);
-       repaint();
+        iL = (int) (1.38 * luz + 110);
+        repaint();
     }
 
+    /*Funcion encargada de llevar el control de la animacion*/
     public void sensor() {
         try {
             //Thread.sleep(3000);
@@ -268,18 +217,43 @@ public class frmAnimacion extends javax.swing.JFrame {
             llenandoLam = true;
             while (true) {
                 Thread.sleep(500);
-                
-                // Comprobar que se estén leyendo, si no, mostrar un mensaje
-                p_dyt.getLeyendo();
-                p_l.getLeyendo();
-                
+
+                /* Comprobacion que se estén leyendo, si no, muestra un mensaje en pantalla*/
+                if (!p_dyt.getLeyendo()) {
+                    lblMSGUltrasonico.setForeground(Color.red);
+                    lblMSG_RTD.setForeground(Color.red);
+                    lblMSGUltrasonico.setText("Puerto desconectado");
+                    lblMSG_RTD.setText("Puerto desconectado");
+                    lblUltrasonico.setText("");
+                    lblRTD.setText("");
+                } else {
+                    lblMSGUltrasonico.setForeground(Color.black);
+                    lblMSG_RTD.setForeground(Color.black);
+                    lblMSGUltrasonico.setText("Valor recibido del sensor");
+                    lblMSG_RTD.setText("Valor recibido del sensor");
+                    lblUltrasonico.setText("" + distancia);
+                    lblRTD.setText("" + temperatura);
+                }
+
+                if (!p_l.getLeyendo()) {
+                    lblMSG_LDR.setForeground(Color.red);
+                    lblMSG_LDR.setText("Puerto desconectado");
+                    lblLDR.setText("");
+                } else {
+                    lblMSG_LDR.setForeground(Color.black);
+                    lblMSG_LDR.setText("Valor recibido del sensor");
+                    lblLDR.setText("" + luz);
+                }
+                                
+                /*Control de pintado para cada sensor e imagen corresponidente*/
                 /*Tinaco*/
                 //System.out.println("PCT: " + p_dyt.getDistancia());
                 activeTin = distancia != p_dyt.getDistancia();
-                if(activeTin){
+                if (activeTin) {
                     distancia = p_dyt.getDistancia();
+                    lblUltrasonico.setText("" + distancia);
                     llenadoTin();
-                }                
+                }
 
                 if (p_dyt.getDistancia() <= 3) { //Apagar sensor ultrasonico
                     llenandoTin = false;
@@ -290,12 +264,12 @@ public class frmAnimacion extends javax.swing.JFrame {
                 /*Termometro*/
                 //System.out.println("PCT1: " + llenadoPCT1);
                 activeTer = temperatura != p_dyt.getTemperatura();
-                if(activeTer){
+                if (activeTer) {
                     temperatura = p_dyt.getTemperatura();
+                    lblRTD.setText("" + temperatura);
                     llenadoTer();
                 }
-                
-                
+
                 System.out.println("PCT1: " + p_dyt.getTemperatura());
                 if (p_dyt.getTemperatura() >= 100) { //Apagar sensor de temperatura
                     llenandoTer = false;
@@ -306,11 +280,12 @@ public class frmAnimacion extends javax.swing.JFrame {
 //                /*Lampara*/
 //                //System.out.println("PCT2: " + llenadoPCT2);
                 activeLam = luz != p_l.getLuz();
-                if(activeLam){
+                if (activeLam) {
                     luz = p_l.getLuz();
-                    llenadoLam();                    
-                }   
-                
+                    lblLDR.setText("" + luz);
+                    llenadoLam();
+                }
+
                 //System.out.println("PCT1: " + p_l.getLuz());
                 if (p_l.getLuz() >= 100) { //Apagar sensor fotoresistivo
                     llenandoLam = false;
@@ -341,12 +316,13 @@ public class frmAnimacion extends javax.swing.JFrame {
         lblTinaco = new javax.swing.JLabel();
         lblTermometro = new javax.swing.JLabel();
         lblLampara = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblMSGUltrasonico = new javax.swing.JLabel();
         lblUltrasonico = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lblCargando = new javax.swing.JLabel();
         lblRTD = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lblMSG_LDR = new javax.swing.JLabel();
         lblLDR = new javax.swing.JLabel();
+        lblMSG_RTD = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 153, 255));
@@ -374,31 +350,39 @@ public class frmAnimacion extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Quicksand", 1, 36)); // NOI18N
         jLabel6.setText("Simulación/Animación de sensores");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
         getContentPane().add(lblTinaco, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 270, 270));
         getContentPane().add(lblTermometro, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 230, 140, 250));
         getContentPane().add(lblLampara, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 230, 248, 271));
 
-        jLabel7.setFont(new java.awt.Font("Quicksand Light", 1, 18)); // NOI18N
-        jLabel7.setText("Valor Recibido del sensor");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 530, -1, -1));
+        lblMSGUltrasonico.setFont(new java.awt.Font("Quicksand Light", 1, 18)); // NOI18N
+        lblMSGUltrasonico.setText("Valor Recibido del sensor");
+        getContentPane().add(lblMSGUltrasonico, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 530, -1, -1));
 
         lblUltrasonico.setFont(new java.awt.Font("Quicksand SemiBold", 1, 18)); // NOI18N
-        getContentPane().add(lblUltrasonico, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 560, 110, 50));
+        lblUltrasonico.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(lblUltrasonico, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 560, 70, 50));
 
-        jLabel9.setFont(new java.awt.Font("Quicksand Light", 1, 18)); // NOI18N
-        jLabel9.setText("Valor Recibido del sensor");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 530, -1, -1));
+        lblCargando.setFont(new java.awt.Font("Quicksand Light", 3, 18)); // NOI18N
+        lblCargando.setForeground(new java.awt.Color(204, 0, 0));
+        lblCargando.setText("Cargando puertos ...");
+        getContentPane().add(lblCargando, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, -1, -1));
 
         lblRTD.setFont(new java.awt.Font("Quicksand SemiBold", 1, 18)); // NOI18N
-        getContentPane().add(lblRTD, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 560, 110, 50));
+        lblRTD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(lblRTD, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 560, 60, 50));
 
-        jLabel11.setFont(new java.awt.Font("Quicksand Light", 1, 18)); // NOI18N
-        jLabel11.setText("Valor Recibido del sensor");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 530, -1, -1));
+        lblMSG_LDR.setFont(new java.awt.Font("Quicksand Light", 1, 18)); // NOI18N
+        lblMSG_LDR.setText("Valor Recibido del sensor");
+        getContentPane().add(lblMSG_LDR, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 530, -1, -1));
 
         lblLDR.setFont(new java.awt.Font("Quicksand SemiBold", 1, 18)); // NOI18N
+        lblLDR.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lblLDR, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 560, 110, 50));
+
+        lblMSG_RTD.setFont(new java.awt.Font("Quicksand Light", 1, 18)); // NOI18N
+        lblMSG_RTD.setText("Valor Recibido del sensor");
+        getContentPane().add(lblMSG_RTD, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 530, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -434,22 +418,24 @@ public class frmAnimacion extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmAnimacion(new Conexion("COM6"), new Conexion("COM7")).setVisible(true);
-            }
-        });
+                
+            } 
+        });   
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblCargando;
     private javax.swing.JLabel lblLDR;
     private javax.swing.JLabel lblLampara;
+    private javax.swing.JLabel lblMSGUltrasonico;
+    private javax.swing.JLabel lblMSG_LDR;
+    private javax.swing.JLabel lblMSG_RTD;
     private javax.swing.JLabel lblRTD;
     private javax.swing.JLabel lblTermometro;
     private javax.swing.JLabel lblTinaco;
