@@ -21,7 +21,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-11,0,0,6,21"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-68,0,0,4,87"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -57,11 +57,14 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Quicksand" size="20" style="1"/>
         </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f8" green="ad" red="0" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="ESCUELA SUPERIOR DE C&#xd3;MPUTO"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="380" y="70" width="-1" height="-1"/>
+          <AbsoluteConstraints x="370" y="70" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -70,11 +73,14 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Quicksand" size="24" style="1"/>
         </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="2e" green="c" red="6d" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="INSTITUTO POLIT&#xc9;CNICO NACIONAL"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="340" y="20" width="-1" height="-1"/>
+          <AbsoluteConstraints x="330" y="20" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -82,6 +88,9 @@
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Quicksand" size="22" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="c6" green="6f" red="f" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Proyecto Final"/>
       </Properties>
@@ -96,6 +105,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Quicksand" size="18" style="1"/>
         </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="60" green="20" red="0" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Instrumentaci&#xf3;n"/>
       </Properties>
       <Constraints>
@@ -109,6 +121,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Quicksand" size="14" style="1"/>
         </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="60" green="20" red="0" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Equipo 5"/>
       </Properties>
       <Constraints>
@@ -120,7 +135,10 @@
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Quicksand" size="14" style="1"/>
+          <Font name="Quicksand" size="14" style="0"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="60" green="20" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x2022;      M&#xe9;ndez Casta&#xf1;eda Aurora "/>
       </Properties>
@@ -135,6 +153,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Quicksand" size="14" style="1"/>
         </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="60" green="20" red="0" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Integrantes:"/>
       </Properties>
       <Constraints>
@@ -146,7 +167,10 @@
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Quicksand" size="14" style="1"/>
+          <Font name="Quicksand" size="14" style="0"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="60" green="20" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x2022;     Ju&#xe1;rez Leonel Reina Beatriz "/>
       </Properties>
@@ -159,7 +183,10 @@
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Quicksand" size="14" style="1"/>
+          <Font name="Quicksand" size="14" style="0"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="60" green="20" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x2022;     Mart&#xed;nez Ruiz Alfredo"/>
       </Properties>
@@ -172,13 +199,16 @@
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Quicksand" size="14" style="1"/>
+          <Font name="Quicksand" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Profesora: Rosario Rocha Bernab&#xe9;"/>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="60" green="20" red="0" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="                   Rosario Rocha Bernab&#xe9;"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="410" y="610" width="-1" height="-1"/>
+          <AbsoluteConstraints x="410" y="610" width="270" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -186,6 +216,9 @@
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Quicksand" size="14" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="60" green="20" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Grupo:"/>
       </Properties>
@@ -199,6 +232,9 @@
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Quicksand" size="14" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="60" green="20" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="3CV13"/>
       </Properties>
@@ -220,6 +256,22 @@
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="950" y="550" width="90" height="100"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel15">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Quicksand" size="14" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="60" green="20" red="0" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Profesora: "/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="410" y="610" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

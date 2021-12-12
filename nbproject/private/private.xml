@@ -3,9 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/kit_5/Downloads/Instrumentación/Proyecto%203%20-%20Llenado%20tinaco/src/Animacion/frmAnimacion.java</file>
             <file>file:/C:/Users/kit_5/Downloads/Instrumentación/Proyecto%203%20-%20Llenado%20tinaco/src/Animacion/Portada.java</file>
             <file>file:/C:/Users/kit_5/Downloads/Instrumentación/Proyecto%203%20-%20Llenado%20tinaco/src/Conexion/Conexion.java</file>
+=======
+            <file>file:/C:/Users/Reina/Documents/NetBeansProjects/Proyecto-3-instru-master/src/Animacion/frmAnimacion.java</file>
+            <file>file:/C:/Users/Reina/Documents/NetBeansProjects/Proyecto-3-instru-master/src/Animacion/Portada.java</file>
+            <file>file:/C:/Users/Reina/Documents/NetBeansProjects/Proyecto-3-instru-master/src/Conexion/Conexion.java</file>
+>>>>>>> e4332490dae756914d25ae645dc451c9e2720024
         </group>
     </open-files>
 </project-private>
