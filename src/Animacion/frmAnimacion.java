@@ -116,7 +116,7 @@ public class frmAnimacion extends javax.swing.JFrame {
         /*Inicialización de i, realmente este es el valor que arrojara el sensor con un calculo de ajuste al pintado de la imagen*/
         iTi = 0;
         iTe = 0;
-        iL = 110; //La i de lampara si o si empieza en 110 para que solo se pinte la parte de la lampara y no de la base
+        iL = 0; //La i de lampara si o si empieza en 110 para que solo se pinte la parte de la lampara y no de la base
 
         /*Impresion de coordenadas de los label (solo por comprobacion)*/
         //System.out.println("Tinaco -> x: " + x + ", y: " + y);
@@ -350,6 +350,11 @@ public class frmAnimacion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 153, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Quicksand Medium", 1, 24)); // NOI18N
@@ -402,6 +407,10 @@ public class frmAnimacion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

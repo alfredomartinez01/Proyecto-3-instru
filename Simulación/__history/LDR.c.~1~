@@ -6,7 +6,6 @@
 #use DELAY (CLOCK=4MHz)
 #use rs232 (baud=9600,parity=N,xmit=pin_c6,rcv=pin_c7,bits=8)
 
-/*------------------------DECLARACIÓN DE VARIABLES-----------------------*/
 #DEFINE LED PORTC, 0
 #BYTE PORTC = 0X07
 

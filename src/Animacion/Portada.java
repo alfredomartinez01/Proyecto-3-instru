@@ -69,6 +69,11 @@ public class Portada extends javax.swing.JFrame {
         btnComenzar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(escom);
@@ -140,6 +145,10 @@ public class Portada extends javax.swing.JFrame {
         this.setVisible(false);
         new frmAnimacion(p_dyt, p_l).setVisible(true);
     }//GEN-LAST:event_btnComenzarMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

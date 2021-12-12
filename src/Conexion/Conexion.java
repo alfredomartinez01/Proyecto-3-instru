@@ -27,18 +27,16 @@ public class Conexion implements SerialPortEventListener {
     boolean esperaByte = false; // Variable que controla si espera un byte de sensor o no
     Medicion medicion; // Variable que indica que tipo de dato de está midiendo
 
+    // Variables medidas 
     private int distancia = 0;
     private int temperatura = 0;
     private int luz = 0;
-
-    private boolean leyendo = true;
+    
+    long ultimoByte; // Variable para 
     
     public static void main(String[] args) {
         Conexion p_dyt = new Conexion("COM6");
-        Conexion p_l = new Conexion("COM7");
-        System.out.println("Temperatura: " + p_dyt.getTemperatura());
-        System.out.println("Distancia: " + p_dyt.getDistancia());
-        System.out.println("Luz: " + p_l.getLuz());        
+        Conexion p_l = new Conexion("COM7");      
     }
 
     public Conexion(String puerto) {
@@ -64,9 +62,12 @@ public class Conexion implements SerialPortEventListener {
     }
 
     public boolean getLeyendo() {
-        return leyendo;
+        if(System.currentTimeMillis() - ultimoByte >= 3500){
+            return false;
+        } else {
+            return true;
+        }
     }
-
    
 
     /**
@@ -115,7 +116,7 @@ public class Conexion implements SerialPortEventListener {
 
     /**
      * @brief Función que establece los parámetros de la conexión que se
-     * comparten con la
+     * comparten con la configuración de Proteus
      */
     private void configurarConexion() throws IOException {
         int baudRate = 9600;
@@ -187,7 +188,6 @@ public class Conexion implements SerialPortEventListener {
                 }
 
                 sensor = 0xFF & readBuffer[0];
-                //System.out.println("\r"+ sensor + " "+ medicion + " " + esperaByte); // Imprimimos lo leído
 
                 if (!esperaByte) {
 
@@ -222,10 +222,8 @@ public class Conexion implements SerialPortEventListener {
                             break;
                     }
                     
-                    //System.out.println("\r" + sensor + " " + medicion); // Imprimimos lo leído
-
                     esperaByte = false;
-                    enviar(sensor);
+                    ultimoByte = System.currentTimeMillis();
                 }
 
             } catch (IOException e) {
